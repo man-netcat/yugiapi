@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YugiDB Connection</title>
+</head>
+
+<body>
+    <h1>YugiDB Connection</h1>
+    <form method="post" action="/set_connection">
+        <p>Select Database Type:</p>
+
+        <div>
+            <button type="submit" name="db_type" value="yugidb">YugiDB</button>
+            <label for="connection_string">Database Connection String (YugiDB only):</label>
+            <input type="text" id="connection_string" name="connection_string">
+        </div>
+
+        <div>
+            <button type="submit" name="db_type" value="omegadb">OmegaDB</button>
+        </div>
+    </form>
+</body>
+
+</html>
