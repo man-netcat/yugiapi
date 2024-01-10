@@ -1,0 +1,3 @@
+[submodule "yugitoolbox"]
+	path = yugitoolbox
+	url = https://github.com/man-netcat/yugitoolbox.git
