@@ -1,68 +1,83 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 from flask_restful import Api, Resource
-from waitress import serve
 from yugitoolbox import OmegaDB, YugiDB
 
 app = Flask(__name__)
 api = Api(app)
 
-db = None
-db_type = None
-
-DEBUG = True
+omegadb = OmegaDB(always_update=True)
+currentdb = omegadb
 
 
 class CardResource(Resource):
     def get(self):
-        card_id = request.args.get("card_id", type=int)
-        card = db.get_card_by_id(card_id)
-        return card.to_dict()
+        cards = currentdb.get_cards_by_values(request.args)
+        cards_data = [card.to_dict() for card in cards]
+        return jsonify(cards_data)
 
 
 class ArchetypeResource(Resource):
     def get(self):
-        archetype_id = request.args.get("arch_id", type=int)
-        archetype = db.get_archetype_by_id(archetype_id)
-        return jsonify(archetype)
+        archetypes = currentdb.get_archetypes_by_values(request.args)
+        archetypes_data = [archetype.to_dict() for archetype in archetypes]
+        return jsonify(archetypes_data)
 
 
 class SetResource(Resource):
     def get(self):
-        set_id = request.args.get("set_id", type=int)
-        set = db.get_set_by_id(set_id)
-        return jsonify(set)
+        sets = currentdb.get_sets_by_values(request.args)
+        sets_data = [set.to_dict() for set in sets]
+        return jsonify(sets_data)
+
+
+class SetConnectionResource(Resource):
+    def post(self):
+        global currentdb
+        db_type = request.form.get("db_type")
+        active_db_name = None
+        error_message = None
+
+        try:
+            if db_type == "yugidb":
+                connection_string = request.form.get("connection_string")
+                currentdb = YugiDB(connection_string)
+                active_db_name = connection_string.split("/")[-1]
+            else:
+                currentdb = omegadb
+                active_db_name = "omega.db"
+        except Exception as e:
+            error_message = str(e)
+
+        kwargs = {"active_db_name": active_db_name}
+        if error_message:
+            kwargs["error_message"] = error_message
+
+        return redirect(url_for("index", **kwargs))
 
 
 api.add_resource(CardResource, "/cards")
 api.add_resource(ArchetypeResource, "/archetypes")
 api.add_resource(SetResource, "/sets")
+api.add_resource(SetConnectionResource, "/set_connection")
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    card_dropdown_options = currentdb.get_card_name_id_map().items()
+    archetype_dropdown_options = currentdb.get_archetype_name_id_map().items()
+    set_dropdown_options = currentdb.get_set_name_id_map().items()
+    active_db_name = request.args.get("active_db_name", None) or "omega.db"
+    error_message = request.args.get("error_message")
 
-
-@app.route("/set_connection", methods=["POST"])
-def set_connection():
-    global db
-    db_type = request.form["db_type"]
-
-    if db_type == "yugidb":
-        connection_string = request.form["connection_string"]
-        db = YugiDB(connection_string)
-    elif db_type == "omegadb":
-        db = OmegaDB(always_update=True)
-    else:
-        return render_template("error.html", error="Invalid database type")
-
-    return render_template("dashboard.html")
-
-
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
+    return render_template(
+        "index.html",
+        card_dropdown_options=card_dropdown_options,
+        archetype_dropdown_options=archetype_dropdown_options,
+        set_dropdown_options=set_dropdown_options,
+        active_db_name=active_db_name,
+        error_message=error_message,
+    )
 
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=5000)
+    app.run(port=5000, debug=True)
