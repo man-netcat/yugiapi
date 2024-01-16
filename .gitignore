@@ -1,1 +1,4 @@
 __pycache__
+static/renders/*
+db/omega
+setup.sh
