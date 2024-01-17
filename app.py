@@ -1,3 +1,5 @@
+import argparse
+
 from flask import (
     Flask,
     jsonify,
@@ -10,35 +12,40 @@ from flask import (
 from flask_restful import Api, Resource
 from yugitoolbox import OmegaDB, YugiDB
 
+parser = argparse.ArgumentParser(description="YuGiOh API Application")
+parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+args = parser.parse_args()
+
 app = Flask(__name__)
 api = Api(app)
+app.debug = args.debug
 
-omegadb = OmegaDB(update="auto")
+omegadb = OmegaDB(update="auto", debug=args.debug)
 currentdb = omegadb
 
 
-class CardData(Resource):
+class CardResource(Resource):
     def get(self):
         cards = currentdb.get_cards_by_values(request.args)
         cards_data = [card.to_dict() for card in cards]
         return jsonify(cards_data)
 
 
-class ArchData(Resource):
+class ArchResource(Resource):
     def get(self):
         archetypes = currentdb.get_archetypes_by_values(request.args)
         archetypes_data = [archetype.to_dict() for archetype in archetypes]
         return jsonify(archetypes_data)
 
 
-class SetData(Resource):
+class SetResource(Resource):
     def get(self):
         sets = currentdb.get_sets_by_values(request.args)
         sets_data = [set.to_dict() for set in sets]
         return jsonify(sets_data)
 
 
-class Connection(Resource):
+class ConnectionResource(Resource):
     def post(self):
         global currentdb
         db_type = request.form.get("db_type")
@@ -63,10 +70,10 @@ class Connection(Resource):
         return redirect(url_for("index", **kwargs))
 
 
-api.add_resource(CardData, "/card_data")
-api.add_resource(ArchData, "/arch_data")
-api.add_resource(SetData, "/set_data")
-api.add_resource(Connection, "/set_connection")
+api.add_resource(CardResource, "/card_data")
+api.add_resource(ArchResource, "/arch_data")
+api.add_resource(SetResource, "/set_data")
+api.add_resource(ConnectionResource, "/set_connection")
 
 
 @app.route("/static/renders/<path:filename>")
@@ -101,4 +108,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=args.debug)
