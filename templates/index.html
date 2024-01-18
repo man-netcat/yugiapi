@@ -32,7 +32,7 @@
     <h1>YugiAPI Dashboard</h1>
 
     <h2>Query Cards</h2>
-    <form id="cardForm" method="get" action="/cards">
+    <form id="cardForm" method="get" action="/card_data">
         <input type="text" id="card_id" name="name" list="cardList" required>
         <datalist id="cardList">
             {% for card_name, card_id in card_dropdown_options %}
@@ -43,7 +43,7 @@
     </form>
 
     <h2>Query Archetypes</h2>
-    <form id="archetypeForm" method="get" action="/archetypes">
+    <form id="archetypeForm" method="get" action="/arch_data">
         <input type="text" id="archetype_id" name="name" list="archetypeList" required>
         <datalist id="archetypeList">
             {% for archetype_name, archetype_id in archetype_dropdown_options %}
@@ -54,7 +54,7 @@
     </form>
 
     <h2>Query Sets</h2>
-    <form id="setForm" method="get" action="/sets">
+    <form id="setForm" method="get" action="/set_data">
         <input type="text" id="set_id" name="name" list="setList" required>
         <datalist id="setList">
             {% for set_name, set_id in set_dropdown_options %}
