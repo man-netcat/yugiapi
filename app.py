@@ -14,6 +14,9 @@ from yugitoolbox import OmegaDB, YugiDB
 
 parser = argparse.ArgumentParser(description="YuGiOh API Application")
 parser.add_argument("--debug", action="store_true", help="Enable debug mode")
+parser.add_argument(
+    "--port", type=int, default=5000, help="Port number to run the server on"
+)
 args = parser.parse_args()
 
 app = Flask(__name__)
@@ -108,4 +111,9 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=args.debug)
+    if args.debug:
+        app.run(debug=args.debug, port=args.port)
+    else:
+        from waitress import serve
+
+        serve(app, host="0.0.0.0", port=args.port)
