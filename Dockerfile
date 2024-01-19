@@ -1,16 +1,14 @@
-# syntax=docker/dockerfile:1
-
 FROM python:3.11-slim-buster
 
-WORKDIR /yugiapi
+WORKDIR /app
 
-ENV FLASK_APP=app.py 
+ENV FLASK_APP=rest_api.py 
 ENV FLASK_RUN_HOST=0.0.0.0 
 
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 EXPOSE 5000
 
-CMD ["waitress-serve", "--host=0.0.0.0", "--port=5000", "app:app"]
+CMD ["python", "rest_api.py"]
