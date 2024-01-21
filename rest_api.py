@@ -1,6 +1,6 @@
 import argparse
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_restful import Api, Resource
 from yugitoolbox import OmegaDB, YugiDB
 
@@ -54,8 +54,8 @@ class RenderCardResource(Resource):
     def get(self, card_id):
         try:
             card = active_db.get_card_by_id(card_id)
-            out_path = card.render("static/renders")
-            return jsonify({"path": out_path})
+            card.render("static/renders")
+            return send_from_directory("static", f"renders/{card_id}.png")
         except Exception as e:
             return jsonify({"error": str(e)})
 
