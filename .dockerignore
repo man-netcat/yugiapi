@@ -1,1 +1,15 @@
-.gitignore
+.git
+.github
+**/__pycache__
+db/omega
+setup.sh
+sandbox.py
+static/renders/*.png
+yugitoolbox/example_renders
+yugitoolbox/LICENSE
+yugitoolbox/MANIFEST.in
+yugitoolbox/README.md
+yugitoolbox/setup.py
+yugitoolbox/yugitoolbox/tests
+yugitoolbox/yugitoolbox/assets/Art/*.png
+yugitoolbox/yugitoolbox/assets/CustomArt/*.png
