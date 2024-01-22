@@ -60,16 +60,15 @@ class RenderCardResource(Resource):
             return jsonify({"error": str(e)})
 
 
-class MappingResource(Resource):
+class NameResource(Resource):
     def get(self):
         try:
-            return jsonify(
-                {
-                    "card_map": active_db.card_name_id_map,
-                    "arch_map": active_db.archetype_name_id_map,
-                    "set_map": active_db.set_name_id_map,
-                }
-            )
+            jsondata = {
+                "card_names": active_db.card_names,
+                "arch_names": active_db.archetype_names,
+                "set_names": active_db.set_names,
+            }
+            return jsonify(jsondata)
         except Exception as e:
             return jsonify({"error": str(e)})
 
@@ -95,7 +94,7 @@ class ConnectionResource(Resource):
 api.add_resource(CardResource, "/card_data")
 api.add_resource(ArchResource, "/arch_data")
 api.add_resource(SetResource, "/set_data")
-api.add_resource(MappingResource, "/mappings")
+api.add_resource(NameResource, "/names")
 api.add_resource(RenderCardResource, "/render/<int:card_id>")
 api.add_resource(ConnectionResource, "/connection")
 
