@@ -1,4 +1,5 @@
 import argparse
+import os
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_restful import Api, Resource
@@ -43,8 +44,9 @@ class SetResource(Resource):
 
 class RenderCardResource(Resource):
     def get(self, card_id):
-        card = active_db.get_card_by_id(card_id)
-        card.render("static/renders")
+        if not os.path.exists(f"static/renders/{card_id}.png"):
+            card = active_db.get_card_by_id(card_id)
+            card.render("static/renders")
         return send_from_directory("static", f"renders/{card_id}.png")
 
 
