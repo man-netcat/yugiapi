@@ -19,76 +19,55 @@ active_db: YugiDB = omegadb
 
 class CardResource(Resource):
     def get(self):
-        try:
-            request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-            cards = active_db.get_cards_by_values(request.args)
-            cards_data = [card.to_dict() for card in cards]
-            return jsonify(cards_data)
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
+        cards = active_db.get_cards_by_values(request.args)
+        cards_data = [card.to_dict() for card in cards]
+        return jsonify(cards_data)
 
 
 class ArchResource(Resource):
     def get(self):
-        try:
-            request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-            archetypes = active_db.get_archetypes_by_values(request.args)
-            archetypes_data = [archetype.to_dict() for archetype in archetypes]
-            return jsonify(archetypes_data)
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
+        archetypes = active_db.get_archetypes_by_values(request.args)
+        archetypes_data = [archetype.to_dict() for archetype in archetypes]
+        return jsonify(archetypes_data)
 
 
 class SetResource(Resource):
     def get(self):
-        try:
-            request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-            sets = active_db.get_sets_by_values(request.args)
-            sets_data = [set.to_dict() for set in sets]
-            return jsonify(sets_data)
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
+        sets = active_db.get_sets_by_values(request.args)
+        sets_data = [set.to_dict() for set in sets]
+        return jsonify(sets_data)
 
 
 class RenderCardResource(Resource):
     def get(self, card_id):
-        try:
-            card = active_db.get_card_by_id(card_id)
-            card.render("static/renders")
-            return send_from_directory("static", f"renders/{card_id}.png")
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        card = active_db.get_card_by_id(card_id)
+        card.render("static/renders")
+        return send_from_directory("static", f"renders/{card_id}.png")
 
 
 class NameResource(Resource):
     def get(self):
-        try:
-            jsondata = {
-                "card_names": active_db.card_names,
-                "arch_names": active_db.archetype_names,
-                "set_names": active_db.set_names,
-            }
-            return jsonify(jsondata)
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        jsondata = {
+            "card_names": active_db.card_names,
+            "arch_names": active_db.archetype_names,
+            "set_names": active_db.set_names,
+        }
+        return jsonify(jsondata)
 
 
 class ConnectionResource(Resource):
     def get(self):
-        try:
-            return jsonify({"active_db_name": active_db.name})
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        return jsonify({"active_db_name": active_db.name})
 
     def post(self):
         global active_db
 
-        try:
-            db_uri = request.args.get("db_uri")
-            active_db = YugiDB(db_uri)
-            return jsonify({"message": "Database connection successful"})
-        except Exception as e:
-            return jsonify({"error": str(e)})
+        db_uri = request.args.get("db_uri")
+        active_db = YugiDB(db_uri)
+        return jsonify({"message": "Database connection successful"})
 
 
 api.add_resource(CardResource, "/card_data")
