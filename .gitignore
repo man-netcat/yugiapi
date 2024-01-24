@@ -2,4 +2,3 @@ __pycache__
 db/omega
 setup.sh
 sandbox.py
-static/renders/*.png
