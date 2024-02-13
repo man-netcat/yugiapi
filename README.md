@@ -66,7 +66,7 @@ The following filter parameters are available for card data:
 - **genre**: Card genre (Genre enum)
 - **linkmarker**: Link marker (LinkMarker enum)
 
-For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/yugitoolbox/enums.py). These are case insensitive.
+For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
 
 ### Archetype Data
 The following filter parameters are available for archetype data:
