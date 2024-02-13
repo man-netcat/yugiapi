@@ -65,7 +65,7 @@ The following filter parameters are available for card data:
 - **category**: Card category (Category enum)
 - **genre**: Card genre (Genre enum)
 - **linkmarker**: Link marker (LinkMarker enum)
-- **Rarity**: Card TCG rarity (Rarity enum)
+- **rarity**: Card TCG rarity (Rarity enum)
 
 For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
 
