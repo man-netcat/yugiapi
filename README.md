@@ -60,7 +60,7 @@ The following filter parameters are available for card data:
 - **def**: Defense points (integer)
 - **level**: Card level (integer)
 - **scale**: Pendulum scale (integer)
-- **koid**: Card KOID (integer)
+- **koid**: Card Konami ID (integer)
 - **type**: Card type (Type enum)
 - **category**: Card category (Category enum)
 - **genre**: Card genre (Genre enum)
