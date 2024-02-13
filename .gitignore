@@ -2,3 +2,4 @@ __pycache__
 db/omega
 setup.sh
 sandbox.py
+out
