@@ -77,13 +77,6 @@ api.add_resource(RenderCardResource, "/render/<int:card_id>")
 api.add_resource(ConnectionResource, "/connection")
 
 if __name__ == "__main__":
-    pg_user = os.environ.get("POSTGRES_USER", "admin")
-    pg_pw = os.environ.get("POSTGRES_PASSWORD", "nope").strip()
-    pg_host = os.environ.get(
-        "YUGIDBAPP_POSTGRES_SERVICE_PORT_5432_TCP_ADDR", "localhost"
-    )
-    pg_db = os.environ.get("POSTGRES_DB", "postgres")
-    pg_uri = f"postgresql://{pg_user}:{pg_pw}@{pg_host}/{pg_db}"
     active_db = OmegaDB(update="auto")
 
     if args.debug:
