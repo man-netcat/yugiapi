@@ -77,7 +77,7 @@ api.add_resource(RenderCardResource, "/render/<int:card_id>")
 api.add_resource(ConnectionResource, "/connection")
 
 if __name__ == "__main__":
-    active_db = OmegaDB(update="auto")
+    active_db = OmegaDB(update="auto", debug=args.debug)
 
     if args.debug:
         app.run(debug=args.debug, port=args.port)
