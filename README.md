@@ -46,7 +46,6 @@ python yugiapi.py [--debug] [--port PORT_NUMBER]
 - **Set Data**: `/set_data` (GET)
 - **Names Data**: `/names` (GET)
 - **Render Card Image**: `/render/<int:card_id>` (GET)
-- **Connection Information**: `/connection` (GET, POST)
 
 ### Filter Parameters
 Parameters can be concatenated with `,` or `|` for `AND` and `OR` functionality. `AND` is evaluated first, then `OR`.
