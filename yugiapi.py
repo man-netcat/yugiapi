@@ -60,24 +60,11 @@ class NameResource(Resource):
         return jsonify(jsondata)
 
 
-class ConnectionResource(Resource):
-    def get(self):
-        return jsonify({"active_db_name": active_db.name})
-
-    def post(self):
-        global active_db
-
-        db_uri = request.args.get("db_uri")
-        active_db = YugiDB(db_uri)
-        return jsonify({"message": "Database connection successful"})
-
-
 api.add_resource(CardResource, f"{API_VERSION}/card_data")
 api.add_resource(ArchResource, f"{API_VERSION}/arch_data")
 api.add_resource(SetResource, f"{API_VERSION}/set_data")
 api.add_resource(NameResource, f"{API_VERSION}/names")
 api.add_resource(RenderCardResource, f"{API_VERSION}/render/<int:card_id>")
-api.add_resource(ConnectionResource, f"{API_VERSION}/connection")
 
 
 @app.route("/")
