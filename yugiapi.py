@@ -1,6 +1,7 @@
 import argparse
 import os
 
+import markdown2
 from flask import Flask, jsonify, request, send_from_directory
 from flask_restful import Api, Resource
 from yugitoolbox import OmegaDB, YugiDB
@@ -13,6 +14,8 @@ args = parser.parse_args()
 app = Flask(__name__)
 api = Api(app)
 app.debug = args.debug
+
+API_VERSION = "/api/v1"
 
 
 class CardResource(Resource):
@@ -69,12 +72,26 @@ class ConnectionResource(Resource):
         return jsonify({"message": "Database connection successful"})
 
 
-api.add_resource(CardResource, "/card_data")
-api.add_resource(ArchResource, "/arch_data")
-api.add_resource(SetResource, "/set_data")
-api.add_resource(NameResource, "/names")
-api.add_resource(RenderCardResource, "/render/<int:card_id>")
-api.add_resource(ConnectionResource, "/connection")
+api.add_resource(CardResource, f"{API_VERSION}/card_data")
+api.add_resource(ArchResource, f"{API_VERSION}/arch_data")
+api.add_resource(SetResource, f"{API_VERSION}/set_data")
+api.add_resource(NameResource, f"{API_VERSION}/names")
+api.add_resource(RenderCardResource, f"{API_VERSION}/render/<int:card_id>")
+api.add_resource(ConnectionResource, f"{API_VERSION}/connection")
+
+
+@app.route("/")
+def homepage():
+    with open("README.md", "r") as readme_file:
+        readme_content = readme_file.read()
+
+    readme_html = markdown2.markdown(readme_content)
+
+    footer_html = '<footer><p>For more information, visit the <a href="https://github.com/man-netcat/yugiapi">official GitHub page</a>.</p></footer>'
+
+    full_html = f"{readme_html}\n{footer_html}"
+    return full_html
+
 
 if __name__ == "__main__":
     active_db = OmegaDB(update="auto", debug=args.debug)

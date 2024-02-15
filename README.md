@@ -49,6 +49,8 @@ python yugiapi.py [--debug] [--port PORT_NUMBER]
 - **Connection Information**: `/connection` (GET, POST)
 
 ### Filter Parameters
+Parameters can be concatenated with `,` or `|` for `AND` and `OR` functionality. `AND` is evaluated first, then `OR`.
+
 #### Card Data
 The following filter parameters are available for card data:
 
@@ -66,6 +68,8 @@ The following filter parameters are available for card data:
 - **genre**: Card genre (Genre enum)
 - **linkmarker**: Link marker (LinkMarker enum)
 - **rarity**: Card TCG rarity (Rarity enum)
+- **in_name**: Substring search for card name
+- **in_desc**: Substring search for card description
 
 For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
 
@@ -74,6 +78,7 @@ The following filter parameters are available for archetype data:
 
 - **name**: Archetype name
 - **id**: Archetype ID (integer)
+- **in_name**: Substring search for archetype name
 
 ### Set Data
 The following filter parameters are available for set data:
@@ -81,19 +86,22 @@ The following filter parameters are available for set data:
 - **name**: Set name
 - **abbr**: Set abbreviation
 - **id**: Set ID (integer)
+- **in_name**: Substring search for set name
 
 ### Examples
 
 #### Get Card Data
 
-```bash
-curl http://localhost:5000/card_data?name=dark%20magician&type=monster
+```
+/api/v1/card_data?name=dark%20magician&type=monster
+/api/v1/card_data?in_name=dragon
+/api/v1/card_data?race=warrior,spellcaster|dragon
 ```
 
 #### Render Card Image
 
-```bash
-curl http://localhost:5000/render/10497636
+```
+/api/v1/render/10497636
 ```
 
 ## Notes
