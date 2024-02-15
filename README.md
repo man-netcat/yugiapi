@@ -95,7 +95,7 @@ The following filter parameters are available for set data:
 ```
 /api/v1/card_data?name=dark%20magician&type=monster
 /api/v1/card_data?in_name=dragon
-/api/v1/card_data?race=warrior,spellcaster|dragon
+/api/v1/card_data?type=synchro,pendulum|fusion,pendulum
 ```
 
 #### Render Card Image
