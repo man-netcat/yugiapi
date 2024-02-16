@@ -21,7 +21,10 @@ API_VERSION = "/api/v1"
 class CardResource(Resource):
     def get(self):
         request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-        cards = active_db.get_cards_by_values(request.args)
+        if not request.args:
+            cards = active_db.cards
+        else:
+            cards = active_db.get_cards_by_values(request.args)
         cards_data = [card.to_dict() for card in cards]
         return jsonify(cards_data)
 
@@ -29,7 +32,10 @@ class CardResource(Resource):
 class ArchResource(Resource):
     def get(self):
         request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-        archetypes = active_db.get_archetypes_by_values(request.args)
+        if not request.args:
+            archetypes = active_db.archetypes
+        else:
+            archetypes = active_db.get_archetypes_by_values(request.args)
         archetypes_data = [archetype.to_dict() for archetype in archetypes]
         return jsonify(archetypes_data)
 
@@ -37,7 +43,10 @@ class ArchResource(Resource):
 class SetResource(Resource):
     def get(self):
         request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-        sets = active_db.get_sets_by_values(request.args)
+        if not request.args:
+            sets = active_db.sets
+        else:
+            sets = active_db.get_sets_by_values(request.args)
         sets_data = [set.to_dict() for set in sets]
         return jsonify(sets_data)
 
