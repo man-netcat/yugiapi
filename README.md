@@ -68,7 +68,7 @@ The following filter parameters are available for card data:
 - **linkmarker**: Link marker (LinkMarker enum)
 - **rarity**: Card TCG rarity (Rarity enum)
 - **in_name**: Substring search for card name
-- **in_desc**: Substring search for card description
+- **mentions**: Substring search for card description
 
 For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
 
