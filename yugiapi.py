@@ -4,7 +4,7 @@ import os
 import markdown2
 from flask import Flask, jsonify, request, send_from_directory
 from flask_restful import Api, Resource
-from yugitoolbox import OmegaDB, YugiDB
+from yugitoolbox import OmegaDB
 
 parser = argparse.ArgumentParser(description="Yu-Gi-Oh! Database REST Api")
 parser.add_argument("--debug", action="store_true", help="Enable debug mode")
@@ -21,19 +21,21 @@ API_VERSION = "/api/v1"
 class ObjectResource(Resource):
     def get(self):
         request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
-        print(request.args)
+
         if not {k: v for k, v in request.args.items() if k != "get"}:
             items = self.get_all_items()
         else:
             items = self.get_items_by_values(request.args)
+
         if "get" in request.args:
             keys = request.args["get"].split(",")
             items_data = [
-                {**{"name": item.name}, **{key: item.to_dict()[key] for key in keys}}
+                {k: v for k, v in item.to_dict().items() if k in keys or k == "name"}
                 for item in items
             ]
         else:
             items_data = [item.to_dict() for item in items]
+
         return jsonify(items_data)
 
 
