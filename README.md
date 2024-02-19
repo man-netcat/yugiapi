@@ -50,6 +50,8 @@ python yugiapi.py [--debug] [--port PORT_NUMBER]
 ### Filter Parameters
 Parameters can be concatenated with `,` or `|` for `AND` and `OR` functionality. `AND` is evaluated first, then `OR`.
 
+An additional parameter `get` can be added to only include particular parameters in the output. This parameter can be comma separated.
+
 #### Card Data
 The following filter parameters are available for card data:
 
