@@ -119,7 +119,7 @@ The following filter parameters are available for set data:
 
 ```
 /api/v1/card_data?name=dark%20magician&type=monster # Finds all monster cards named Dark Magician
-/api/v1/card_data?in_name=dragon&race=~dragon # Finds all monsters with 'Dragon' in the name that are not 'Dragon-Type'
+/api/v1/card_data?in_name=dragon&race=~dragon&type=monster # Finds all monsters with 'Dragon' in the name that are not 'Dragon-Type'
 /api/v1/card_data?type=synchro,pendulum|fusion,pendulum # Finds all Fusion and Synchro Pendulum Monsters
 ```
 
