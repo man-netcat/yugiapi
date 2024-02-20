@@ -74,6 +74,30 @@ The following filter parameters are available for card data:
 
 For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
 
+**race**, **attribute**, **level**, **atk** and **def** support the value **?**. 
+
+**atk** can be set equal to **def**. 
+
+```
+/api/v1/card_data?atk=def
+```
+
+Additional comparators `<`, `>`, `<=` and `>=` are supported and can be used as follows:
+
+```
+/api/v1/card_data?level=>4
+```
+
+This finds monsters with a level greater than 4.
+
+Negation is suppored as well, using the prefix `~` operator, and will negate everything that follows. This can be combined with comparators and concatenation.
+
+```
+/api/v1/card_data?level=~5
+```
+
+This finds all monsters with level not equal to 5.
+
 ### Archetype Data
 The following filter parameters are available for archetype data:
 
@@ -94,9 +118,9 @@ The following filter parameters are available for set data:
 #### Get Card Data
 
 ```
-/api/v1/card_data?name=dark%20magician&type=monster
-/api/v1/card_data?in_name=dragon
-/api/v1/card_data?type=synchro,pendulum|fusion,pendulum
+/api/v1/card_data?name=dark%20magician&type=monster # Finds all monster cards named Dark Magician
+/api/v1/card_data?in_name=dragon&race=~dragon # Finds all monsters with 'Dragon' in the name that are not 'Dragon-Type'
+/api/v1/card_data?type=synchro,pendulum|fusion,pendulum # Finds all Fusion and Synchro Pendulum Monsters
 ```
 
 #### Render Card Image
