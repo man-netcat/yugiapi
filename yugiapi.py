@@ -22,10 +22,13 @@ class ObjectResource(Resource):
     def get(self):
         request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
 
-        if not {k: v for k, v in request.args.items() if k != "get"}:
-            items = self.get_all_items()
-        else:
-            items = self.get_items_by_values(request.args)
+        try:
+            if not {k: v for k, v in request.args.items() if k != "get"}:
+                items = self.get_all_items()
+            else:
+                items = self.get_items_by_values(request.args)
+        except Exception as e:
+            return jsonify({"error": f"{type(e)}: {e}"})
 
         if "get" in request.args:
             keys = request.args["get"].split(",")
