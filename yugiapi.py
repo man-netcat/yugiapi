@@ -94,7 +94,7 @@ def homepage():
 
 
 if __name__ == "__main__":
-    active_db = OmegaDB(update="auto", debug=args.debug)
+    active_db = OmegaDB(update="auto")
 
     if args.debug:
         app.run(debug=args.debug, port=args.port)
