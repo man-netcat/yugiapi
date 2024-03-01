@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import argparse
 import os
 
@@ -20,18 +21,18 @@ API_VERSION = "/api/v1"
 
 class ObjectResource(Resource):
     def get(self):
-        request.args = {k.casefold(): v.casefold() for k, v in request.args.items()}
+        args = {k.casefold(): v.casefold() for k, v in request.args.items()}
 
         try:
-            if not {k: v for k, v in request.args.items() if k != "get"}:
+            if not {k: v for k, v in args.items() if k != "get"}:
                 items = self.get_all_items()
             else:
-                items = self.get_items_by_values(request.args)
+                items = self.get_items_by_values(args)
         except Exception as e:
             return jsonify({"error": f"{type(e)}: {e}"})
 
-        if "get" in request.args:
-            keys = request.args["get"].split(",")
+        if "get" in args:
+            keys = args["get"].split(",")
             items_data = [
                 {k: v for k, v in item.to_dict().items() if k in keys or k == "name"}
                 for item in items
@@ -40,6 +41,14 @@ class ObjectResource(Resource):
             items_data = [item.to_dict() for item in items]
 
         return jsonify(items_data)
+
+    @abstractmethod
+    def get_all_items(self) -> list:
+        pass
+
+    @abstractmethod
+    def get_items_by_values(self, args) -> list:
+        pass
 
 
 class CardResource(ObjectResource):
