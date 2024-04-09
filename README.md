@@ -72,7 +72,38 @@ The following filter parameters are available for card data:
 - **in_name**: Substring search for card name
 - **mentions**: Substring search for card description
 
-For valid enum values, see [this file](https://github.com/man-netcat/yugitoolbox/blob/main/src/enums.py). These are case insensitive.
+#### Valid values (case insensitive):
+    
+**type**:
+    monster, spell, trap, normal, ritual, tuner, pendulum, trapmonster, spsummon, fusion, synchro, xyz, link, token, spirit, union, gemini, flip, toon, effect, quickplay, continuous, equip, field, counter
+
+
+**linkmarker**:
+    bottomleft, bottom, bottomright, left, right, topleft, top, topright
+
+
+**race**:
+    warrior, spellcaster, fairy, fiend, zombie, machine, aqua, pyro, rock, wingedbeast, plant, insect, thunder, dragon, beast, beastwarrior, dinosaur, fish, seaserpent, reptile, psychic, divinebeast, creatorgod, wyrm, cyberse, illusion, cyborg, magicalknight, highdragon, omegapsychic, celestialknight, galaxy
+
+
+**attribute**:
+    earth, water, fire, wind, light, dark, divine
+
+
+**category**:
+    skillcard, speedspellcard, bosscard, betacard, actioncard, commandcard, doublescript, rushlegendary, preerrata, darkcard, duellinks, rushcard, startcard, onecard, twocard, threecard, levelzero, treatedas, bluegod, yellowgod, redgod, rushmax, sc
+
+
+**genre**:
+    stdestroy, destroymonster, banish, graveyard, backtohand, backtodeck, destroyhand, destroydeck, draw, search, recovery, position, control, changeatkdef, piercing, repeatattack, limitattack, directattack, specialsummon, token, typerelated, attributerelated, damagelp, recoverlp, destroy, select, counter, gamble, fusionrelated, tunerrelated, xyzrelated, negateeffect, ritualrelated, pendulumrelated, linkrelated, handtrap
+
+
+**status**:
+    ocg, tcg, legal, illegal
+
+
+**rarity**:
+    common, shortprint, supershortprint, rare, super, ghostgold, ultra, ultimate, secret, ultrasecret, goldsecret, prismaticsecret, ghost, platinum, normalparallel, superparallel, ultraparallel, duelterminalnormal, duelterminalrare, duelterminalsuper, duelterminalshatterfoil, starlight, gold, platinumsecret, tenthousandsecret, mezuki, starfoil, collectors, premiumgold, mosaic, pharaohs, shatterfoil
 
 **race**, **attribute**, **level**, **atk** and **def** support the value **?**. 
 
