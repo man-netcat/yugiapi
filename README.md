@@ -74,35 +74,35 @@ The following filter parameters are available for card data:
 
 #### Valid values (case insensitive):
     
-**type**:
+- **type**:
     monster, spell, trap, normal, ritual, tuner, pendulum, trapmonster, spsummon, fusion, synchro, xyz, link, token, spirit, union, gemini, flip, toon, effect, quickplay, continuous, equip, field, counter
 
 
-**linkmarker**:
+- **linkmarker**:
     bottomleft, bottom, bottomright, left, right, topleft, top, topright
 
 
-**race**:
+- **race**:
     warrior, spellcaster, fairy, fiend, zombie, machine, aqua, pyro, rock, wingedbeast, plant, insect, thunder, dragon, beast, beastwarrior, dinosaur, fish, seaserpent, reptile, psychic, divinebeast, creatorgod, wyrm, cyberse, illusion, cyborg, magicalknight, highdragon, omegapsychic, celestialknight, galaxy
 
 
-**attribute**:
+- **attribute**:
     earth, water, fire, wind, light, dark, divine
 
 
-**category**:
+- **category**:
     skillcard, speedspellcard, bosscard, betacard, actioncard, commandcard, doublescript, rushlegendary, preerrata, darkcard, duellinks, rushcard, startcard, onecard, twocard, threecard, levelzero, treatedas, bluegod, yellowgod, redgod, rushmax, sc
 
 
-**genre**:
+- **genre**:
     stdestroy, destroymonster, banish, graveyard, backtohand, backtodeck, destroyhand, destroydeck, draw, search, recovery, position, control, changeatkdef, piercing, repeatattack, limitattack, directattack, specialsummon, token, typerelated, attributerelated, damagelp, recoverlp, destroy, select, counter, gamble, fusionrelated, tunerrelated, xyzrelated, negateeffect, ritualrelated, pendulumrelated, linkrelated, handtrap
 
 
-**status**:
+- **status**:
     ocg, tcg, legal, illegal
 
 
-**rarity**:
+- **rarity**:
     common, shortprint, supershortprint, rare, super, ghostgold, ultra, ultimate, secret, ultrasecret, goldsecret, prismaticsecret, ghost, platinum, normalparallel, superparallel, ultraparallel, duelterminalnormal, duelterminalrare, duelterminalsuper, duelterminalshatterfoil, starlight, gold, platinumsecret, tenthousandsecret, mezuki, starfoil, collectors, premiumgold, mosaic, pharaohs, shatterfoil
 
 **race**, **attribute**, **level**, **atk** and **def** support the value **?**. 
