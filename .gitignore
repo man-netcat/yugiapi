@@ -3,3 +3,4 @@ db/omega
 setup.sh
 sandbox.py
 out
+.venv
